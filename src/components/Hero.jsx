@@ -48,16 +48,16 @@ const Hero = () => {
             className="scale-x-[-1] absolute right-0 bottom-0 h-64"
           />
         </div>
-        <div>
+        <div className="">
           <div className="flex justify-between items-center ">
-            <div className="h-20 w-20 rounded-full bg-green-500 border-4 border-black overflow-hidden">
+            <div className="h-16 w-16 rounded-full border-4 border-black overflow-hidden">
               <img
                 src={customer1}
                 alt=""
                 className="w-full h-full object-cover object-center"
               />
             </div>
-            <div className="h-20 w-20 rounded-full bg-red-500 -translate-x-6 border-4 border-black overflow-hidden">
+            <div className="h-16 w-16 rounded-full -translate-x-6 border-4 border-black overflow-hidden">
               <img
                 src={customer2}
                 alt=""
@@ -66,14 +66,14 @@ const Hero = () => {
             </div>
           </div>
           <div className="text-center">
-            <p className="text-4xl font-semibold py-4">1000+</p>
-            <div className="text-gray-500">
+            <p className="text-4xl font-semibold py-3">1000+</p>
+            <div className="text-gray-500 text-sm">
               <p>SATISFIED</p>
               <p>CUSTOMERS</p>
             </div>
-            <div className="flex flex-col justify-center items-center mt-2 translate-y-4">
+            <div className="flex flex-col justify-center items-center -mt-15  translate-y-18">
               <div className="w-2 h-2 rounded-full bg-white" />
-              <div className="w-[1px] h-20 violet-gradient bg-white" />
+              <div className="w-[1px] h-26 violet-gradient bg-white" />
             </div>
           </div>
         </div>
