@@ -1,4 +1,5 @@
 import watch from "/watch.png";
+// import Watch3D from "./Watch3D";
 import man from "/man.png";
 import { FiWatch } from "react-icons/fi";
 import customer1 from "/customer1.jpg";
@@ -26,6 +27,7 @@ const Hero = () => {
         </div>
         <div className="right">
           <img src={watch} alt="watch" className="h-[30rem]" />
+          {/* <Watch3D /> */}
         </div>
       </div>
       {/* customers section */}
