@@ -27,7 +27,6 @@ export default function ProductList() {
           <div className="flex justify-between items-center text-white">
             <div>
               <h2 className="text-lg font-semibold mt-2">{product.title}</h2>
-              {/* <p className="text-gray-600">{product.description}</p> */}
               <p className="text-green-600 font-semibold">${product.price}</p>
             </div>
             <FaCartShopping />
