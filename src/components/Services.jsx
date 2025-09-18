@@ -41,11 +41,6 @@ const Services = () => {
             </div>
           </div>
         </div>
-        <div className="text-center mt-10">
-          <button className="px-4 py-2 bg-white text-black font-semibold cursor-pointer hover:bg-black hover:text-white transition-all border-[1px] border-transparent hover:border-white duration-500 ease-in-out">
-            Explore Our Services
-          </button>
-        </div>
       </div>
     </>
   );
