@@ -7,6 +7,7 @@ import Layout from "./Layout";
 import HomePage from "./components/HomePage";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import AddProduct from "./components/AddProduct";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
                 <Route path="contact" element={<Contact />} />
                 <Route path="login" element={<Login />} />
                 <Route path="signup" element={<Signup />} />
+                <Route path="addproduct" element={<AddProduct />} />
                 <Route path="*" element={<div>404 Not Found</div>} />
               </Route>
             </Routes>

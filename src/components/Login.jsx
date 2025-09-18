@@ -1,7 +1,27 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import { API_BASE_URL } from "../utils/constants";
 
 const ContactUs = () => {
+  const [email, setEmail] = useState("hamza@gmail.com");
+  const [password, setPassword] = useState("Hamza@123");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const user = await axios.post( `${API_BASE_URL}/login`, {
+      email,
+      password,
+    })
+
+    console.log(user.data.data);
+
+    setEmail("");
+    setPassword("");
+    alert("Login Successful!");
+  }
+
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center px-4 py-10">
       <h1 className="text-4xl font-bold text-center mb-8">Login</h1>
@@ -14,6 +34,8 @@ const ContactUs = () => {
             <input
               type="email"
               placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
               required
             />
@@ -25,6 +47,8 @@ const ContactUs = () => {
             <input
               type="password"
               placeholder="Your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
               required
             />
@@ -39,6 +63,7 @@ const ContactUs = () => {
           <button
             type="submit"
             className="w-full bg-black text-white rounded-lg py-3 text-lg font-semibold hover:bg-white hover:text-black transition-all duration-300 cursor-pointer"
+            onClick={handleLogin}
           >
             Login
           </button>
