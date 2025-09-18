@@ -1,10 +1,10 @@
 import watch from "/watch.png";
-// import Watch3D from "./Watch3D";
 import man from "/man.png";
 import { FiWatch } from "react-icons/fi";
 import customer1 from "/customer1.jpg";
 import customer2 from "/customer2.jpg";
 import video from "/video.mp4";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -18,16 +18,15 @@ const Hero = () => {
           <h1 className="text-7xl tracking-tight py-1">STYLE</h1>
           <div className="buttons py-4 space-x-6">
             <button className="px-4 py-2 bg-white text-black font-semibold cursor-pointer hover:bg-black hover:text-white transition-all border-[1px] border-transparent hover:border-white duration-500 ease-in-out">
-              SHOP NOW
+              <Link to="/products">SHOP NOW</Link>
             </button>
             <button className="px-4 py-2 bg-gray-600 font-semibold cursor-pointer  hover:bg-white hover:text-black duration-500 ease-in-out">
-              LEARN MORE
+              <Link to="/about">LEARN MORE</Link>
             </button>
           </div>
         </div>
         <div className="right">
           <img src={watch} alt="watch" className="h-[30rem]" />
-          {/* <Watch3D /> */}
         </div>
       </div>
       {/* customers section */}
