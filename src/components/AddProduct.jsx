@@ -13,13 +13,19 @@ const ContactUs = () => {
   const addProduct = async (e) => {
     e.preventDefault();
 
-    const product = await axios.post(`${API_BASE_URL}/addproduct`, {
-      name,
-      price,
-      description,
-      photoUrl,
-    });
-    console.log(product.data.data);
+    try {
+      const product = await axios.post(`${API_BASE_URL}/addproduct`, {
+        name,
+        price,
+        description,
+        photoUrl,
+      });
+      console.log(product.data.data);
+    } catch (error) {
+      console.log(error);
+      alert("Error adding product");
+      return;
+    }
 
     setName("");
     setPrice("");
