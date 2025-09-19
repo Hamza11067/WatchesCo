@@ -9,10 +9,12 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import AddProduct from "./components/AddProduct";
 import ProductList from "./components/ProductList";
+import { Provider } from "react-redux";
+import store from "./utils/store";
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <main className="bg-black px-16 text-white">
         <div className="max-w-[1200px] mx-auto">
           <BrowserRouter basename="/">
@@ -33,7 +35,7 @@ function App() {
           </BrowserRouter>
         </div>
       </main>
-    </>
+    </Provider>
   );
 }
 

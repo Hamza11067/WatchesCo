@@ -2,10 +2,15 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "../utils/constants";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const ContactUs = () => {
   const [email, setEmail] = useState("hamza@gmail.com");
   const [password, setPassword] = useState("Hamza@123");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -13,13 +18,21 @@ const ContactUs = () => {
     const user = await axios.post( `${API_BASE_URL}/login`, {
       email,
       password,
-    })
+    }, {withCredentials: true});
 
     console.log(user.data.data);
+    dispatch(addUser(user.data.data));
+
+    if (!user) {
+      alert("Login Failed! Please try again.");
+      return;
+    }
+
 
     setEmail("");
     setPassword("");
     alert("Login Successful!");
+    navigate("/");
   }
 
   return (
