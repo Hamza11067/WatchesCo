@@ -25,7 +25,7 @@ export default function ProductList() {
             <img
               src={product.photoUrl}
               alt={product.name}
-              className="w-full py-2 h-60 object-cover rounded hover:scale-105 transition-transform duration-300"
+              className="w-full py-2 h-60 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
             />
             <div className="flex justify-between items-center text-white">
               <div>
