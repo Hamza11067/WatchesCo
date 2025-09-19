@@ -58,7 +58,7 @@ const ContactUs = () => {
               Password
             </label>
             <input
-              type="password"
+              type="text"
               placeholder="Your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

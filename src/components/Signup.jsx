@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { API_BASE_URL } from "../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 const ContactUs = () => {
   const [firstName, setFirstName] = useState("Tom");
   const [lastName, setLastName] = useState("Cruise");
   const [email, setEmail] = useState("tom@gmail.com");
   const [password, setPassword] = useState("Tom@123");
+  const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -24,6 +26,7 @@ const ContactUs = () => {
     setEmail("");
     setPassword("");
     alert("Sign Up Successful!"); 
+    navigate("/login");
   }
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center px-4 py-10">
@@ -78,7 +81,7 @@ const ContactUs = () => {
               Password
             </label>
             <input
-              type="password"
+              type="text"
               placeholder="Your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
