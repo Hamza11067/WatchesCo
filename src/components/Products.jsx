@@ -9,11 +9,11 @@ export default function Products() {
         <h1 className="text-5xl">SPEAK YOUR STYLE</h1>
       </div>
       <ProductList />
-      <div className="text-center mt-10">
+      {/* <div className="text-center mt-10">
         <button className="px-4 py-2 bg-white text-black font-semibold cursor-pointer hover:bg-black hover:text-white transition-all border-[1px] border-transparent hover:border-white duration-500 ease-in-out">
           View All Products
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
