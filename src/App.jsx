@@ -15,7 +15,7 @@ import store from "./utils/store";
 function App() {
   return (
     <Provider store={store}>
-      <main className="bg-black px-16 text-white">
+      <main className="bg-black text-white min-h-screen px-4 sm:px-8 md:px-16">
         <div className="max-w-[1200px] mx-auto">
           <BrowserRouter basename="/">
             <Routes>
@@ -40,4 +40,3 @@ function App() {
 }
 
 export default App;
-
