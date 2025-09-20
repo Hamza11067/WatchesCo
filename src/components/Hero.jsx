@@ -10,7 +10,7 @@ const Hero = () => {
   return (
     <>
       {/* Hero Section */}
-      <div className="text-white flex flex-col md:flex-row justify-between items-center px-4 md:px-12">
+      <div className="text-white flex flex-col md:flex-row justify-between items-center px-4 ">
         {/* Left text */}
         <div className="left w-full md:w-1/2 text-center md:text-left">
           <p className="text-yellow-700 text-sm md:text-base">TIMELESS ELEGANCE</p>
@@ -20,12 +20,12 @@ const Hero = () => {
           <h1 className="text-3xl md:text-7xl tracking-tight py-1">STYLE</h1>
           <div className="buttons py-4 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <Link to="/products">
-              <button className="px-4 py-2 bg-white text-black font-semibold hover:bg-black hover:text-white transition-all border border-transparent hover:border-white duration-500 ease-in-out w-full sm:w-auto">
+              <button className="px-4 py-2 cursor-pointer bg-white text-black font-semibold hover:bg-black hover:text-white transition-all border border-transparent hover:border-white duration-500 ease-in-out w-full sm:w-auto">
                 SHOP NOW
               </button>
             </Link>
             <Link to="/about">
-              <button className="px-4 py-2 bg-gray-600 font-semibold hover:bg-white hover:text-black duration-500 ease-in-out w-full sm:w-auto">
+              <button className="px-4 py-2 cursor-pointer bg-gray-600 font-semibold hover:bg-white hover:text-black duration-500 ease-in-out w-full sm:w-auto">
                 LEARN MORE
               </button>
             </Link>
@@ -39,7 +39,7 @@ const Hero = () => {
       </div>
 
       {/* Customers Section */}
-      <div className="text-white flex flex-col md:flex-row justify-between items-center py-16 gap-8 px-4 md:px-12">
+      <div className="text-white flex flex-col md:flex-row justify-between items-center py-16 gap-8 px-4">
         {/* Warranty card */}
         <div className="left w-full md:w-96 h-60 bg-[#181818] p-10 space-y-8 relative">
           <FiWatch className="text-2xl text-white" />

@@ -5,7 +5,7 @@ const Services = () => {
     <div className="py-10">
       {/* Heading */}
       <motion.div
-        className="py-10 space-y-2 text-center px-4"
+        className="py-10 space-y-2 px-4"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}

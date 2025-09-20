@@ -3,7 +3,7 @@ import { useState } from "react";
 import { API_BASE_URL } from "../utils/constants";
 import { FaCartShopping } from "react-icons/fa6";
 
-const ContactUs = () => {
+const AddProduct = () => {
   const [name, setName] = useState("Tomi");
   const [price, setPrice] = useState("3000");
   const [description, setDescription] = useState("Lo gay to pta chal jaye ga");
@@ -120,7 +120,7 @@ const ContactUs = () => {
           <div className="flex justify-between items-center text-white">
             <div>
               <h2 className="text-lg font-semibold mt-2">{name}</h2>
-              <p className="text-green-600 font-semibold">${price}</p>
+              <p className="text-gray-100 font-bold">Rs.{price}</p>
             </div>
             <FaCartShopping />
           </div>
@@ -130,4 +130,4 @@ const ContactUs = () => {
   );
 };
 
-export default ContactUs;
+export default AddProduct;
