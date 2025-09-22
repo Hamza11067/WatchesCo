@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FaCartShopping } from "react-icons/fa6";
 import { API_BASE_URL } from "../utils/constants";
 import { addProducts } from "../utils/productSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,24 +25,29 @@ export default function ProductList() {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 py-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-4">
       {products &&
         products.map((product) => (
           <div
             key={product._id}
-            className="bg-[#181818] rounded-lg p-4 shadow-md cursor-pointer"
+            className="bg-white rounded-lg overflow-hidden shadow-md cursor-pointer"
           >
             <img
               src={product.photoUrl}
               alt={product.name}
-              className="w-full py-2 h-60 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
+              className="w-full h-60 object-cover hover:scale-105 transition-transform duration-300"
             />
-            <div className="flex justify-between items-center text-white">
-              <div>
-                <h2 className="text-lg font-semibold mt-2">{product.name}</h2>
-                <p className="text-gray-100 font-semibold">Rs.{product.price}</p>
+            <div className="text-black px-3 py-2 space-y-2">
+              <h2 className="text-lg font-bold mt-2">{product.name}</h2>
+              <div className="flex justify-items-start items-center gap-2">
+                <p className="font-semibold text-xl">Rs.{product.price}</p>
+                <p className="font-semibold text-xl text-red-600 line-through">
+                  Rs.{(product.price * 1.2).toFixed(0)}
+                </p>
               </div>
-              <FaCartShopping />
+              <button className="bg-black text-white text-lg font-semibold  w-full p-3 rounded-lg cursor-pointer hover:bg-red-600 hover:text-black transition-colors duration-300">
+                Add to cart
+              </button>
             </div>
           </div>
         ))}
