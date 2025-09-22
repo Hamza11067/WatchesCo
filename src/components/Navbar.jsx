@@ -40,6 +40,11 @@ const Navbar = () => {
             About
           </Link>
         </li>
+         <li>
+          <Link to="/about" className="hover:border-b-2 border-white pb-1">
+            Cart
+          </Link>
+        </li>
         <li>
           {user ? (
             "Welcome, " + user.firstName
