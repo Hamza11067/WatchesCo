@@ -4,20 +4,25 @@ import { API_BASE_URL } from "../utils/constants";
 import { FaCartShopping } from "react-icons/fa6";
 
 const AddProduct = () => {
-  const [name, setName] = useState("Tomi");
-  const [price, setPrice] = useState("3000");
-  const [description, setDescription] = useState("Lo gay to pta chal jaye ga");
-  const [photoUrl, setPhotoUrl] = useState(null);
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
 
   const addProduct = async (e) => {
     e.preventDefault();
 
     try {
-      const product = await axios.post(`${API_BASE_URL}/addproduct`, {
-        name,
-        price,
-        description,
-        photoUrl,
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("price", price);
+      formData.append("description", description);
+      formData.append("photo", photoUrl);
+
+      const product = await axios.post(`${API_BASE_URL}/addproduct`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
       console.log(product.data.data);
     } catch (error) {
@@ -87,10 +92,11 @@ const AddProduct = () => {
                 Picture Url
               </label>
               <input
-                type="text"
+                type="file"
+                accept="image/*"
                 placeholder="http://example.com/pic.jpg"
-                value={photoUrl}
-                onChange={(e) => setPhotoUrl(e.target.value)}
+                // value={photoUrl}
+                onChange={(e) => setPhotoUrl(e.target.files[0])}
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
                 required
               />
@@ -113,7 +119,7 @@ const AddProduct = () => {
         <div className="bg-[#181818] rounded-lg p-4 shadow-md cursor-pointer">
           <img
     
-            src={photoUrl || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtW0E3itYQnQDbmonHfcbJ5Kvfi_Ke7QOG_w&s"}
+            src={photoUrl ? URL.createObjectURL(photoUrl) : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtW0E3itYQnQDbmonHfcbJ5Kvfi_Ke7QOG_w&s"}
             alt={name}
             className="w-full py-2 h-60 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
           />
