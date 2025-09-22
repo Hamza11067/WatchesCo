@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { API_BASE_URL } from "../utils/constants";
 import { FaCartShopping } from "react-icons/fa6";
 
@@ -8,6 +8,7 @@ const AddProduct = () => {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
+  const fileInputRef = useRef(null);
 
   const addProduct = async (e) => {
     e.preventDefault();
@@ -35,6 +36,7 @@ const AddProduct = () => {
     setPrice("");
     setDescription("");
     setPhotoUrl("");
+    fileInputRef.current.value = "";
     alert("Product Added Successfully!");
   };
 
@@ -94,8 +96,8 @@ const AddProduct = () => {
               <input
                 type="file"
                 accept="image/*"
+                ref={fileInputRef}
                 placeholder="http://example.com/pic.jpg"
-                // value={photoUrl}
                 onChange={(e) => setPhotoUrl(e.target.files[0])}
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
                 required
