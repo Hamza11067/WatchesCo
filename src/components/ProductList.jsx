@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { API_BASE_URL } from "../utils/constants";
 import { addProducts } from "../utils/productSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../utils/cartSlice";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
   const productsFromStore = useSelector((store) => store.product);
+  const user = useSelector((store) => store.user);
 
   if (!productsFromStore) {
     useEffect(() => {
@@ -23,6 +25,15 @@ export default function ProductList() {
       setProducts(productsFromStore);
     }, [productsFromStore]);
   }
+
+  const handleAddToCart = () => {
+    if (!user) {
+      alert("Please login to add items to cart.");
+      return;
+    }
+    dispatch(addToCart({ userId: user._id, productId: products[0]._id, quantity: 1 }));
+  }
+
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-4">
@@ -45,7 +56,10 @@ export default function ProductList() {
                   Rs.{(product.price * 1.2).toFixed(0)}
                 </p>
               </div>
-              <button className="bg-black text-white text-lg font-semibold  w-full p-3 rounded-lg cursor-pointer hover:bg-red-600 hover:text-black transition-colors duration-300">
+              <button
+                onClick={handleAddToCart}
+                className="bg-black text-white text-lg font-semibold  w-full p-3 rounded-lg cursor-pointer hover:bg-red-600 hover:text-black transition-colors duration-300"
+              >
                 Add to cart
               </button>
             </div>

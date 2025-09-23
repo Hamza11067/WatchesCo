@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { FaCartShopping } from "react-icons/fa6";
 
 const Navbar = () => {
+  const cartCount = useSelector((state) =>
+    state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
+  );
   const user = useSelector((state) => state.user);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -40,11 +44,7 @@ const Navbar = () => {
             About
           </Link>
         </li>
-         <li>
-          <Link to="/about" className="hover:border-b-2 border-white pb-1">
-            Cart
-          </Link>
-        </li>
+
         <li>
           {user ? (
             "Welcome, " + user.firstName
@@ -53,6 +53,14 @@ const Navbar = () => {
               Login
             </Link>
           )}
+        </li>
+        <li className="relative text-xl border-b-2 border-transparent hover:border-b-2 hover:border-white pb-1">
+          <Link to="/cart" className="">
+            <FaCartShopping className="" />
+            <span className="absolute -top-4 -right-2 bg-red-500 px-1 text-sm rounded">
+              {cartCount}
+            </span>
+          </Link>
         </li>
       </ul>
 

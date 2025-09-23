@@ -11,6 +11,7 @@ import AddProduct from "./components/AddProduct";
 import ProductList from "./components/ProductList";
 import { Provider } from "react-redux";
 import store from "./utils/store";
+import Cart from "./components/Cart";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
                 <Route path="products" element={<Products />} />
                 <Route path="services" element={<Services />} />
                 <Route path="about" element={<About />} />
+                <Route path="cart" element={<Cart />} />
                 <Route path="contact" element={<Contact />} />
                 <Route path="login" element={<Login />} />
                 <Route path="signup" element={<Signup />} />
