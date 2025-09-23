@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import { FaCartShopping } from "react-icons/fa6";
+import { fetchCart } from "../utils/cartSlice";
 
 const Navbar = () => {
   const cartCount = useSelector((state) =>
@@ -9,6 +10,14 @@ const Navbar = () => {
   );
   const user = useSelector((state) => state.user);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (user._id) {
+      dispatch(fetchCart(user._id));
+    }
+  }, [user, dispatch]);
 
   return (
     <div className="text-white flex justify-between items-center py-6 px-4 bg-black relative">
@@ -48,7 +57,7 @@ const Navbar = () => {
         <li>
           {user && user.firstName ? (
             <Link className="hover:border-b-2 border-white pb-1">
-            Welcome, {user.firstName}
+              Welcome, {user.firstName}
             </Link>
           ) : (
             <Link to="/login" className="hover:border-b-2 border-white pb-1">
