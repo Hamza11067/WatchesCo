@@ -23,7 +23,7 @@ export default function ProductList() {
   } else {
     useEffect(() => {
       setProducts(productsFromStore);
-    }, [productsFromStore]);
+    }, []);
   }
 
   const handleAddToCart = () => {

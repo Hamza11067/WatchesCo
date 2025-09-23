@@ -4,7 +4,7 @@ import axios from "axios";
 import { API_BASE_URL } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice";
+import { addUser} from "../utils/userSlice";
 
 const ContactUs = () => {
   const [email, setEmail] = useState("hamza@gmail.com");
@@ -22,6 +22,7 @@ const ContactUs = () => {
 
     console.log(user.data.data);
     dispatch(addUser(user.data.data));
+
 
     if (!user) {
       alert("Login Failed! Please try again.");

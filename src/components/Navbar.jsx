@@ -46,8 +46,10 @@ const Navbar = () => {
         </li>
 
         <li>
-          {user ? (
-            "Welcome, " + user.firstName
+          {user && user.firstName ? (
+            <Link className="hover:border-b-2 border-white pb-1">
+            Welcome, {user.firstName}
+            </Link>
           ) : (
             <Link to="/login" className="hover:border-b-2 border-white pb-1">
               Login
