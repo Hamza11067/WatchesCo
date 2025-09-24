@@ -31,7 +31,7 @@ export default function ProductList() {
       alert("Please login to add items to cart.");
       return;
     }
-    dispatch(addToCart({ userId: user._id, productId: products[0]._id, quantity: 1 }));
+    dispatch(addToCart({ userId: user?._id, productId: products[0]?._id, quantity: 1 }));
   }
 
 
@@ -40,7 +40,7 @@ export default function ProductList() {
       {products &&
         products.map((product) => (
           <div
-            key={product._id}
+            key={product?._id}
             className="bg-white rounded-lg overflow-hidden shadow-md cursor-pointer"
           >
             <img

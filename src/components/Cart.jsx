@@ -19,7 +19,7 @@ function Cart({ userId }) {
     <div>
       <h2>Your Cart</h2>
       {cart.map((item) => (
-        <div key={item.productId._id}>
+        <div key={item.productId?._id}>
           <p>
             {item.productId.name} - {item.quantity}
           </p>
@@ -28,7 +28,7 @@ function Cart({ userId }) {
               dispatch(
                 updateQuantity({
                   userId,
-                  productId: item.productId._id,
+                  productId: item.productId?._id,
                   quantity: item.quantity + 1,
                 })
               )
@@ -41,7 +41,7 @@ function Cart({ userId }) {
               dispatch(
                 updateQuantity({
                   userId,
-                  productId: item.productId._id,
+                  productId: item.productId?._id,
                   quantity: item.quantity - 1,
                 })
               )
@@ -52,7 +52,7 @@ function Cart({ userId }) {
           <button
             onClick={() =>
               dispatch(
-                removeFromCart({ userId, productId: item.productId._id })
+                removeFromCart({ userId, productId: item.productId?._id })
               )
             }
           >

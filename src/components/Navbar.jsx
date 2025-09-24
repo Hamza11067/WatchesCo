@@ -14,8 +14,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user._id) {
-      dispatch(fetchCart(user._id));
+    if (user?._id) {
+      dispatch(fetchCart(user?._id));
     }
   }, [user, dispatch]);
 
