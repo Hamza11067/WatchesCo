@@ -79,7 +79,7 @@ const Footer = () => {
       </div>
       {/* Developer Info */}
       <div className="text-center text-sm text-gray-500 mt-2">
-        Designed & Developed with ❤️ by &nbsp;
+        Developed with ❤️ by &nbsp;
         <a
           className="text-green-500 font-semibold cursor-pointer hover:underline"
           href="https://www.linkedin.com/in/hamza-khalid-843781226/"

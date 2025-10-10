@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useRef, useState } from "react";
 import { API_BASE_URL } from "../utils/constants";
-import { FaCartShopping } from "react-icons/fa6";
 
 const AddProduct = () => {
   const [name, setName] = useState("");
@@ -118,19 +117,30 @@ const AddProduct = () => {
       {/* Product Preview */}
       <div className="w-1/3">
         <h1 className="text-4xl font-bold text-center mb-8">Preview</h1>
-        <div className="bg-[#181818] rounded-lg p-4 shadow-md cursor-pointer">
+        <div className="w-72 bg-white rounded-lg overflow-hidden shadow-md cursor-pointer">
           <img
-    
-            src={photoUrl ? URL.createObjectURL(photoUrl) : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtW0E3itYQnQDbmonHfcbJ5Kvfi_Ke7QOG_w&s"}
+            src={
+              photoUrl
+                ? URL.createObjectURL(photoUrl)
+                : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtW0E3itYQnQDbmonHfcbJ5Kvfi_Ke7QOG_w&s"
+            }
             alt={name}
-            className="w-full py-2 h-60 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
+            className="w-full h-60 object-cover hover:scale-105 transition-transform duration-300"
           />
-          <div className="flex justify-between items-center text-white">
-            <div>
-              <h2 className="text-lg font-semibold mt-2">{name}</h2>
-              <p className="text-gray-100 font-bold">Rs.{price}</p>
+          <div className="text-black px-3 py-2 space-y-2">
+            <h2 className="text-lg font-bold mt-2">{name ? name : "Tomi"}</h2>
+            <div className="flex justify-items-start items-center gap-2">
+              <p className="font-semibold text-xl">Rs.{price}</p>
+              <p className="font-semibold text-xl text-red-600 line-through">
+                Rs.{(price * 1.2).toFixed(0)}
+              </p>
             </div>
-            <FaCartShopping />
+            <button
+              // onClick={handleAddToCart}
+              className="bg-black text-white text-lg font-semibold  w-full p-3 rounded-lg cursor-pointer hover:bg-red-600 hover:text-black transition-colors duration-300"
+            >
+              Add to cart
+            </button>
           </div>
         </div>
       </div>
