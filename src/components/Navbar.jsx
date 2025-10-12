@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import { fetchCart } from "../utils/cartSlice";
+import userImage from "/user.png";
 
 const Navbar = () => {
   const cartCount = useSelector((state) =>
@@ -10,8 +11,17 @@ const Navbar = () => {
   );
   const user = useSelector((state) => state.user);
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const dispatch = useDispatch();
+  
+  const handleUser = () => {
+    setIsUserMenuOpen(!isUserMenuOpen);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    window.location.reload();
+  }
 
   useEffect(() => {
     if (user?._id) {
@@ -56,9 +66,24 @@ const Navbar = () => {
 
         <li>
           {user && user.firstName ? (
-            <Link className="hover:border-b-2 border-white pb-1">
-              Welcome, {user.firstName}
-            </Link>
+            <div>
+              <Link
+                className="hover:border-b-2 border-white pb-1 flex gap-2"
+                onClick={handleUser}
+              >
+                Welcome, {user.firstName}
+                <img
+                  src={userImage}
+                  alt=""
+                  className="w-8 -mt-2 rounded-full"
+                />
+              </Link>
+              {isUserMenuOpen && (
+                <div className="absolute bg-gray-600 p-4">
+                  <p className="hover:underline cursor-pointer" onClick={handleLogout}>Logout</p>
+                </div>
+              )}
+            </div>
           ) : (
             <Link to="/login" className="hover:border-b-2 border-white pb-1">
               Login
