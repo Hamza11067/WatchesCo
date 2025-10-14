@@ -13,6 +13,7 @@ import ProductList from "./components/ProductList";
 import { Provider } from "react-redux";
 import store from "./utils/store";
 import Cart from "./components/Cart";
+import WhatsAppButton from "./components/WhatsappButton";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             </Routes>
           </BrowserRouter>
         </div>
+        <WhatsAppButton />
       </main>
     </Provider>
   );
