@@ -1,4 +1,5 @@
 import About from "./components/About";
+import Orders from "./components/Orders";
 import Products from "./components/Products";
 import Services from "./components/Services";
 import Contact from "./components/Contact";
@@ -25,6 +26,7 @@ function App() {
                 <Route path="products" element={<Products />} />
                 <Route path="services" element={<Services />} />
                 <Route path="about" element={<About />} />
+                <Route path="orders" element={<Orders />} />
                 <Route path="cart" element={<Cart />} />
                 <Route path="contact" element={<Contact />} />
                 <Route path="login" element={<Login />} />

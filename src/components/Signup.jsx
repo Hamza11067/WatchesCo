@@ -5,10 +5,10 @@ import { API_BASE_URL } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
 
 const ContactUs = () => {
-  const [firstName, setFirstName] = useState("Tom");
-  const [lastName, setLastName] = useState("Cruise");
-  const [email, setEmail] = useState("tom@gmail.com");
-  const [password, setPassword] = useState("Tom@123");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
@@ -68,7 +68,7 @@ const ContactUs = () => {
             </label>
             <input
               type="email"
-              placeholder="you@example.com"
+              placeholder="jhon@gmail.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
@@ -82,7 +82,7 @@ const ContactUs = () => {
             </label>
             <input
               type="text"
-              placeholder="Your password"
+              placeholder="John@123"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
@@ -93,7 +93,7 @@ const ContactUs = () => {
           <p className="text-sm text-gray-500">
             Already registered!{" "}
             <span className="text-yellow-700 font-semibold">
-              <Link to="/login">Login In</Link>
+              <Link to="/login">Login</Link>
             </span>
           </p>
 

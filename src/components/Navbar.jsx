@@ -13,7 +13,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const dispatch = useDispatch();
-  
+
   const handleUser = () => {
     setIsUserMenuOpen(!isUserMenuOpen);
   };
@@ -21,7 +21,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("user");
     window.location.reload();
-  }
+  };
 
   useEffect(() => {
     if (user?._id) {
@@ -63,6 +63,11 @@ const Navbar = () => {
             About
           </Link>
         </li>
+        <li>
+          <Link to="/orders" className="hover:border-b-2 border-white pb-1">
+            Orders
+          </Link>
+        </li>
 
         <li>
           {user && user.firstName ? (
@@ -80,7 +85,12 @@ const Navbar = () => {
               </Link>
               {isUserMenuOpen && (
                 <div className="absolute bg-gray-600 p-4">
-                  <p className="hover:underline cursor-pointer" onClick={handleLogout}>Logout</p>
+                  <p
+                    className="hover:underline cursor-pointer"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </p>
                 </div>
               )}
             </div>
