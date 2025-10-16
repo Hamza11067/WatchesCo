@@ -2,8 +2,8 @@ import ProductList from "../components/ProductList";
 
 export default function Products() {
   return (
-    <div className="-px-16">
-    <div className="text-white py-10 px-4 min-h-screen">
+    // <div className="-px-16">
+    <div className="text-white px-4 min-h-screen">
       <div className="py-10 space-y-2 text-center md:text-left">
         <p className="text-yellow-700 text-sm md:text-base tracking-wide">
           TIMELESS CREATIONS
@@ -17,6 +17,6 @@ export default function Products() {
       </div>
       <ProductList />
     </div>
-    </div>
+    // </div>
   );
 }

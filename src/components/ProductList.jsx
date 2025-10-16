@@ -12,29 +12,28 @@ export default function ProductList() {
   const productsFromStore = useSelector((store) => store.product);
   const user = useSelector((store) => store.user);
 
-  if (!productsFromStore) {
-    useEffect(() => {
+  useEffect(() => {
+    if (!productsFromStore) {
       const fetchProducts = async () => {
         const res = await axios.get(`${API_BASE_URL}/products`);
         setProducts(res.data.data);
         dispatch(addProducts(res.data.data));
       };
       fetchProducts();
-    }, []);
-  } else {
-    useEffect(() => {
+    } else {
       setProducts(productsFromStore);
-    }, []);
-  }
+    }
+  }, [productsFromStore, dispatch]);
 
   const handleAddToCart = () => {
     if (!user) {
       alert("Please login to add items to cart.");
       return;
     }
-    dispatch(addToCart({ userId: user?._id, productId: products[0]?._id, quantity: 1 }));
-  }
-
+    dispatch(
+      addToCart({ userId: user?._id, productId: products[0]?._id, quantity: 1 })
+    );
+  };
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-4">
@@ -44,12 +43,13 @@ export default function ProductList() {
             key={product?._id}
             className="bg-white rounded-lg overflow-hidden shadow-md cursor-pointer"
           >
-            <Link to={`/product/${product._id}`} >
-            <img
-              src={product.photoUrl}
-              alt={product.name}
-              className="w-full h-60 object-cover hover:scale-105 transition-transform duration-300"
-            />
+            <Link to={`/product/${product._id}`}>
+              <img
+                src={product.photoUrl}
+                alt={product.name}
+                className="w-full h-60 object-cover hover:scale-105 transition-transform duration-300"
+              />
+            </Link>
             <div className="text-black px-3 py-2 space-y-2">
               <h2 className="text-lg font-bold mt-2">{product.name}</h2>
               <div className="flex justify-items-start items-center gap-2">
@@ -65,7 +65,6 @@ export default function ProductList() {
                 Add to cart
               </button>
             </div>
-            </Link>
           </div>
         ))}
     </div>

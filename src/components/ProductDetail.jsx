@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "../utils/constants";
 
-
 function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -33,20 +32,18 @@ function ProductDetail() {
 
   if (!product)
     return (
-      <div className="text-center py-10 text-gray-600">
-        Product not found.
-      </div>
+      <div className="text-center py-10 text-gray-600">Product not found.</div>
     );
 
   return (
     <div className="mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         {/* Product Image */}
-        <div className="flex justify-center">
+        <div className="flex justify-center w-[32rem] h-[32rem]">
           <img
             src={product.photoUrl}
             alt={product.name}
-            className="w-full rounded-2xl shadow-xl hover:scale-102 transition-transform duration-300"
+            className="w-full object-cover rounded-2xl shadow-xl hover:scale-102 transition-transform duration-300"
           />
         </div>
 
@@ -61,10 +58,13 @@ function ProductDetail() {
             <span className="text-3xl font-semibold text-emerald-600">
               Rs.{product.price}
             </span>
+            <span className="font-semibold text-3xl text-red-600 line-through">
+              Rs.{(product.price * 1.2).toFixed(0)}
+            </span>
             {/* {product.inStock ? ( */}
-              <span className="text-sm bg-emerald-100 text-emerald-600 px-3 py-1 rounded-full">
-                In Stock
-              </span>
+            <span className="text-sm bg-emerald-100 text-emerald-600 px-3 py-1 rounded-full">
+              In Stock
+            </span>
             {/* ) : (
               <span className="text-sm bg-red-100 text-red-600 px-3 py-1 rounded-full">
                 Out of Stock
