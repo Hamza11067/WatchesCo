@@ -15,7 +15,7 @@ export default function WhatsAppButton() {
       href="https://wa.me/447405918231"
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 animate-bounce"
+      className="fixed bottom-4 right-6 z-50 animate-bounce"
     >
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"

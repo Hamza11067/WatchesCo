@@ -49,7 +49,7 @@ const Footer = () => {
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white"
+              className="hover:text-pink-500"
             >
               <FaInstagram />
             </a>
@@ -57,15 +57,15 @@ const Footer = () => {
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white"
+              className="hover:text-blue-500"
             >
               <FaFacebook />
             </a>
             <a
-              href="https://wa.me/your-number"
+              href="https://wa.me/447405918231"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white"
+              className="hover:text-green-500"
             >
               <FaWhatsapp />
             </a>
