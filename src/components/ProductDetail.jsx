@@ -39,7 +39,7 @@ function ProductDetail() {
     <div className="mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         {/* Product Image */}
-        <div className="flex justify-center w-[32rem] h-[32rem]">
+        <div className="flex justify-center lg:w-[30rem] lg:h-[30rem] md:w-[24rem] md:h-[24rem]">
           <img
             src={product.photoUrl}
             alt={product.name}
@@ -49,16 +49,16 @@ function ProductDetail() {
 
         {/* Product Info */}
         <div>
-          <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
+          <h1 className="text-2xl md:text-4xl font-bold mb-4">{product.name}</h1>
           <p className="text-gray-500 mb-6 leading-relaxed">
             {product.description}
           </p>
 
           <div className="flex items-center justify-between mb-6">
-            <span className="text-3xl font-semibold text-emerald-600">
+            <span className="md:text-3xl text-2xl font-semibold text-white">
               Rs.{product.price}
             </span>
-            <span className="font-semibold text-3xl text-red-600 line-through">
+            <span className="font-semibold text-2xl md:text-3xl text-red-600 line-through">
               Rs.{(product.price * 1.2).toFixed(0)}
             </span>
             {/* {product.inStock ? ( */}
