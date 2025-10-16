@@ -4,6 +4,7 @@ import { API_BASE_URL } from "../utils/constants";
 import { addProducts } from "../utils/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../utils/cartSlice";
+import { Link } from "react-router-dom";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
@@ -43,6 +44,7 @@ export default function ProductList() {
             key={product?._id}
             className="bg-white rounded-lg overflow-hidden shadow-md cursor-pointer"
           >
+            <Link to={`/product/${product._id}`} >
             <img
               src={product.photoUrl}
               alt={product.name}
@@ -63,6 +65,7 @@ export default function ProductList() {
                 Add to cart
               </button>
             </div>
+            </Link>
           </div>
         ))}
     </div>

@@ -10,6 +10,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import AddProduct from "./components/AddProduct";
 import ProductList from "./components/ProductList";
+import ProductDetail from "./components/ProductDetail";
 import { Provider } from "react-redux";
 import store from "./utils/store";
 import Cart from "./components/Cart";
@@ -34,6 +35,7 @@ function App() {
                 <Route path="signup" element={<Signup />} />
                 <Route path="addproduct" element={<AddProduct />} />
                 <Route path="productList" element={<ProductList />} />
+                <Route path="/product/:id" element={<ProductDetail />} />
                 <Route path="*" element={<div>404 Not Found</div>} />
               </Route>
             </Routes>
