@@ -68,6 +68,13 @@ const Navbar = () => {
             Orders
           </Link>
         </li>
+        {user?.role === "admin" && (
+          <li>
+            <Link to="/addproduct" className="hover:border-b-2 border-white pb-1">
+              Add Product
+            </Link>
+          </li>
+        )}
 
         <li>
           {user && user.firstName ? (

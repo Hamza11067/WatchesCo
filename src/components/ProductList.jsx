@@ -5,6 +5,8 @@ import { addProducts } from "../utils/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../utils/cartSlice";
 import { Link } from "react-router-dom";
+import { FaTrash } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
@@ -57,6 +59,16 @@ export default function ProductList() {
                 <p className="font-semibold text-xl text-red-600 line-through">
                   Rs.{(product.price * 1.2).toFixed(0)}
                 </p>
+                {user?.role === "admin" && (
+                  <>
+                    <span className="text-white bg-green-500 p-1 rounded">
+                      <MdEdit />
+                    </span>
+                    <span className="text-white bg-red-600 p-1 rounded">
+                      <FaTrash />
+                    </span>
+                  </>
+                )}
               </div>
               <button
                 onClick={handleAddToCart}
