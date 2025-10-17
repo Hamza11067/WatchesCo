@@ -27,13 +27,20 @@ export default function ProductList() {
     }
   }, [productsFromStore, dispatch]);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (product) => {
     if (!user) {
       alert("Please login to add items to cart.");
       return;
     }
     dispatch(
-      addToCart({ userId: user?._id, productId: products[0]?._id, quantity: 1 })
+      addToCart({
+        userId: user?._id,
+        productId: product?._id,
+        name: product?.name,
+        price: product?.price,
+        photoUrl: product?.photoUrl,
+        quantity: 1
+       })
     );
   };
 
@@ -89,7 +96,7 @@ export default function ProductList() {
                 )}
               </div>
               <button
-                onClick={handleAddToCart}
+                onClick={()=> handleAddToCart(product)}
                 className="bg-black text-white text-lg font-semibold  w-full p-3 rounded-lg cursor-pointer hover:bg-red-600 hover:text-black transition-colors duration-300"
               >
                 Add to cart

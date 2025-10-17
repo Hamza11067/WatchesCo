@@ -1,63 +1,121 @@
-// store/cartSlice.js
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { API_BASE_URL } from "./constants";
+import { createSlice } from "@reduxjs/toolkit";
 
-// Async thunks for API calls
-export const fetchCart = createAsyncThunk("cart/fetchCart", async (userId) => {
-  const res = await axios.get(`${API_BASE_URL}/cart/${userId}`);
-  return res.data;
-});
+// ---- Helpers ----
+const loadCartFromLocalStorage = () => {
+  try {
+    const stored = localStorage.getItem("cart");
+    if (!stored) {
+      return { cartItems: [], totalQuantity: 0, totalPrice: 0 };
+    }
 
-export const addToCart = createAsyncThunk(
-  "cart/addToCart",
-  async ({ userId, productId }) => {
-    const res = await axios.post(`${API_BASE_URL}/cart/add`, { userId, productId, quantity: 1 });
-    return res.data;
+    const parsed = JSON.parse(stored);
+
+    // Recalculate totals safely
+    const totalQuantity = parsed.reduce((sum, item) => sum + item.quantity, 0);
+    const totalPrice = parsed.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+
+    return { cartItems: parsed, totalQuantity, totalPrice };
+  } catch (error) {
+    console.error("Error loading cart from localStorage", error);
+    return { cartItems: [], totalQuantity: 0, totalPrice: 0 };
   }
-);
+};
 
-export const updateQuantity = createAsyncThunk(
-  "cart/updateQuantity",
-  async ({ userId, productId, quantity }) => {
-    const res = await axios.put(`${API_BASE_URL}/cart/update`, { userId, productId, quantity });
-    return res.data;
+const saveCartToLocalStorage = (cartItems) => {
+  try {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  } catch (error) {
+    console.error("Error saving cart to localStorage", error);
   }
-);
+};
 
-export const removeFromCart = createAsyncThunk(
-  "cart/removeFromCart",
-  async ({ userId, productId }) => {
-    const res = await axios.delete(`${API_BASE_URL}/cart/remove`, { data: { userId, productId } });
-    return res.data;
-  }
-);
+// ---- Initial State ----
+const initialState = loadCartFromLocalStorage();
 
+// ---- Slice ----
 const cartSlice = createSlice({
   name: "cart",
-  initialState: {
-    items: [],
-    status: "idle",
-    error: null,
-  },
-  reducers: {},
+  initialState,
+  reducers: {
+    addToCart: (state, action) => {
+      const item = action.payload;
+      const existing = state.cartItems.find(
+        (i) => i.productId === item.productId
+      );
 
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchCart.fulfilled, (state, action) => {
-        state.items = action.payload.items || [];
-        state.status = "succeeded";
-      })
-      .addCase(addToCart.fulfilled, (state, action) => {
-        state.items = action.payload.items;
-      })
-      .addCase(updateQuantity.fulfilled, (state, action) => {
-        state.items = action.payload.items;
-      })
-      .addCase(removeFromCart.fulfilled, (state, action) => {
-        state.items = action.payload.items;
-      });
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        state.cartItems.push({ ...item, quantity: 1 });
+      }
+
+      state.totalQuantity = state.cartItems.reduce(
+        (sum, i) => sum + i.quantity,
+        0
+      );
+      state.totalPrice = state.cartItems.reduce(
+        (sum, i) => sum + i.price * i.quantity,
+        0
+      );
+
+      saveCartToLocalStorage(state.cartItems);
+    },
+
+    removeFromCart: (state, action) => {
+      const productId = action.payload;
+      state.cartItems = state.cartItems.filter(
+        (i) => i.productId !== productId
+      );
+
+      state.totalQuantity = state.cartItems.reduce(
+        (sum, i) => sum + i.quantity,
+        0
+      );
+      state.totalPrice = state.cartItems.reduce(
+        (sum, i) => sum + i.price * i.quantity,
+        0
+      );
+
+      saveCartToLocalStorage(state.cartItems);
+    },
+
+    decreaseQuantity: (state, action) => {
+      const productId = action.payload;
+      const existing = state.cartItems.find((i) => i.productId === productId);
+
+      if (existing && existing.quantity > 1) {
+        existing.quantity -= 1;
+      } else {
+        state.cartItems = state.cartItems.filter(
+          (i) => i.productId !== productId
+        );
+      }
+
+      state.totalQuantity = state.cartItems.reduce(
+        (sum, i) => sum + i.quantity,
+        0
+      );
+      state.totalPrice = state.cartItems.reduce(
+        (sum, i) => sum + i.price * i.quantity,
+        0
+      );
+
+      saveCartToLocalStorage(state.cartItems);
+    },
+
+    clearCart: (state) => {
+      state.cartItems = [];
+      state.totalQuantity = 0;
+      state.totalPrice = 0;
+      saveCartToLocalStorage([]);
+    },
   },
 });
+
+export const { addToCart, removeFromCart, decreaseQuantity, clearCart } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -1,97 +1,105 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCart, updateQuantity, removeFromCart } from "../utils/cartSlice";
-import { MdDelete } from "react-icons/md";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  removeFromCart,
+  decreaseQuantity,
+  addToCart,
+  clearCart,
+} from "../utils/cartSlice";
+import { Link } from "react-router-dom";
 
-function Cart({ userId }) {
+export default function CartPage() {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart.items);
+  const { cartItems, totalPrice } = useSelector((state) => state.cart);
 
-  useEffect(() => {
-    dispatch(fetchCart(userId));
-  }, [dispatch, userId]);
+  if (cartItems.length === 0) {
+    return (
+      <div className="max-w-3xl mx-auto p-6 text-center">
+        <h2 className="lg:text-2xl font-bold mb-4">Your Cart is Empty 🛒</h2>
+        <Link
+          to="/products"
+          className="inline-block bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
+        >
+          Continue Shopping
+        </Link>
+      </div>
+    );
+  }
 
   return (
-    <div className="p-4 mx-auto">
-      <h2 className="text-3xl font-bold mb-4 text-white">Your Cart</h2>
+    <div className="max-w-4xl mx-auto lg:p-6 p-4">
+      <h2 className="lg:text-3xl text-2xl font-bold mb-6 text-center">Your Shopping Cart</h2>
 
-      {cart.length === 0 ? (
-        <p className="text-gray-500">Your cart is empty.</p>
-      ) : (
-        <div className="space-y-6">
-          {cart.map((item) => (
-            <div
-              key={item.productId?._id}
-              className="flex items-center justify-between bg-white shadow-md rounded-lg p-4"
-            >
-              {/* Product Image */}
-              <div className="flex items-center space-x-4">
-                <img
-                  src={
-                    item.productId?.photoUrl || "https://via.placeholder.com/80"
-                  }
-                  alt={item.productId?.name}
-                  className="w-20 h-20 object-cover rounded-md border"
-                />
-                <div>
-                  <p className="text-lg font-semibold text-gray-800">
-                    {item.productId?.name}
-                  </p>
-                  <p className="text-gray-600">Qty: {item.quantity}</p>
+      <div className="space-y-4">
+        {cartItems.map((item) => (
+          <div
+            key={item.productId}
+            className="flex items-center justify-between pb-4 bg-slate-800 transition rounded-lg lg:p-3 p-2"
+          >
+            {/* Left section - Image and Info */}
+            <div className="flex items-center gap-4">
+              <img
+                src={item.photoUrl}
+                alt={item.name}
+                className="w-20 h-20 object-cover rounded-xl border"
+              />
+              <div>
+                <h3 className="font-semibold text-lg">{item.name}</h3>
+                <p className="text-gray-600 text-sm">Rs. {item.price}</p>
+
+                <div className="flex items-center gap-3 mt-2">
+                  <button
+                    onClick={() => dispatch(decreaseQuantity(item.productId))}
+                    className="w-8 h-8 border rounded-md text-lg font-semibold hover:bg-gray-500 cursor-pointer"
+                  >
+                    −
+                  </button>
+                  <span className="min-w-[30px] text-center">
+                    {item.quantity}
+                  </span>
+                  <button
+                    onClick={() => dispatch(addToCart(item))}
+                    className="w-8 h-8 border rounded-md text-lg font-semibold hover:bg-gray-500 cursor-pointer"
+                  >
+                    +
+                  </button>
                 </div>
               </div>
+            </div>
 
-              {/* Quantity Controls */}
-              <div className="flex items-center space-x-2">
-                <button
-                  className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
-                  onClick={() =>
-                    dispatch(
-                      updateQuantity({
-                        userId,
-                        productId: item.productId?._id,
-                        quantity: item.quantity - 1,
-                      })
-                    )
-                  }
-                  disabled={item.quantity <= 1}
-                >
-                  -
-                </button>
-                <span className="px-3">{item.quantity}</span>
-                <button
-                  className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
-                  onClick={() =>
-                    dispatch(
-                      updateQuantity({
-                        userId,
-                        productId: item.productId?._id,
-                        quantity: item.quantity + 1,
-                      })
-                    )
-                  }
-                >
-                  +
-                </button>
-              </div>
-
-              {/* Remove Button */}
+            {/* Right section - Remove */}
+            <div className="flex flex-col items-end">
+              <p className="font-semibold">Rs. {item.price * item.quantity}</p>
               <button
-                className="text-red-500 hover:text-red-700 font-medium cursor-pointer"
-                onClick={() =>
-                  dispatch(
-                    removeFromCart({ userId, productId: item.productId?._id })
-                  )
-                }
+                onClick={() => dispatch(removeFromCart(item.productId))}
+                className="text-red-500 mt-2 hover:underline cursor-pointer"
               >
-                <MdDelete className="text-3xl" />
+                Remove
               </button>
             </div>
-          ))}
+          </div>
+        ))}
+      </div>
+
+      {/* Summary Section */}
+      <div className="mt-8 border-t pt-6 flex justify-between items-center">
+        <div>
+          <button
+            onClick={() => dispatch(clearCart())}
+            className="px-4 py-2 rounded font-semibold bg-red-600 hover:bg-red-700 text-white transition cursor-pointer"
+          >
+            Clear Cart
+          </button>
         </div>
-      )}
+        <div className="text-right">
+          <p className="text-xl font-semibold">Total: Rs. {totalPrice}</p>
+          <Link
+            to="/checkout"
+            className="inline-block bg-green-600 text-white lg:px-6 px-3 py-2 mt-3 rounded-md hover:bg-green-700 transition"
+          >
+            Proceed to Checkout →
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
-
-export default Cart;

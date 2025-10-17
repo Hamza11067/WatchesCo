@@ -1,18 +1,17 @@
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 import { FaCartShopping } from "react-icons/fa6";
-import { fetchCart } from "../utils/cartSlice";
+// import { fetchCart } from "../utils/cartSlice";
 import userImage from "/user.png";
 
 const Navbar = () => {
-  const cartCount = useSelector((state) =>
-    state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
-  );
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
   const user = useSelector((state) => state.user);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const dispatch = useDispatch();
 
   const handleUser = () => {
     setIsUserMenuOpen(!isUserMenuOpen);
@@ -22,12 +21,6 @@ const Navbar = () => {
     localStorage.removeItem("user");
     window.location.reload();
   };
-
-  useEffect(() => {
-    if (user?._id) {
-      dispatch(fetchCart(user?._id));
-    }
-  }, [user, dispatch]);
 
   return (
     <div className="text-white flex justify-between items-center py-6 px-4 bg-black relative">
