@@ -37,6 +37,20 @@ export default function ProductList() {
     );
   };
 
+  const deleteProduct = async (product) => {
+    const confirmDelete = window.confirm("Are you sure?");
+    if (!confirmDelete) return;
+    try {
+      await axios.delete(`${API_BASE_URL}/deleteproduct/${product._id}`);
+      alert("Product deleted successfully");
+      setProducts(products.filter((p) => p._id !== product._id));
+
+    } catch (error) {
+      alert("Error deleting product");
+      console.log(error);
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-4">
       {products &&
@@ -61,10 +75,13 @@ export default function ProductList() {
                 </p>
                 {user?.role === "admin" && (
                   <>
-                    <span className="text-white bg-green-500 p-1 rounded">
+                    <span className="text-white bg-green-500 hover:bg-green-600 p-1 rounded">
                       <MdEdit />
                     </span>
-                    <span className="text-white bg-red-600 p-1 rounded">
+                    <span
+                      className="text-white bg-red-500 hover:bg-red-600 p-1 rounded"
+                      onClick={() => deleteProduct(product)}
+                    >
                       <FaTrash />
                     </span>
                   </>
