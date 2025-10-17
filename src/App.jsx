@@ -9,6 +9,7 @@ import HomePage from "./components/HomePage";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import AddProduct from "./components/AddProduct";
+import EditProduct from "./components/EditProduct";
 import ProductList from "./components/ProductList";
 import ProductDetail from "./components/ProductDetail";
 import { Provider } from "react-redux";
@@ -34,6 +35,7 @@ function App() {
                 <Route path="login" element={<Login />} />
                 <Route path="signup" element={<Signup />} />
                 <Route path="addproduct" element={<AddProduct />} />
+                <Route path="editproduct/:id" element={<EditProduct />} />
                 <Route path="productList" element={<ProductList />} />
                 <Route path="/product/:id" element={<ProductDetail />} />
                 <Route path="*" element={<div>404 Not Found</div>} />

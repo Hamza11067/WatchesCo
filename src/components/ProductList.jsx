@@ -44,7 +44,6 @@ export default function ProductList() {
       await axios.delete(`${API_BASE_URL}/deleteproduct/${product._id}`);
       alert("Product deleted successfully");
       setProducts(products.filter((p) => p._id !== product._id));
-
     } catch (error) {
       alert("Error deleting product");
       console.log(error);
@@ -76,7 +75,9 @@ export default function ProductList() {
                 {user?.role === "admin" && (
                   <>
                     <span className="text-white bg-green-500 hover:bg-green-600 p-1 rounded">
-                      <MdEdit />
+                      <Link to={`/editproduct/${product._id}`}>
+                        <MdEdit />
+                      </Link>
                     </span>
                     <span
                       className="text-white bg-red-500 hover:bg-red-600 p-1 rounded"
