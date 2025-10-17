@@ -27,13 +27,15 @@ export default function CartPage() {
 
   return (
     <div className="max-w-4xl mx-auto lg:p-6 p-4">
-      <h2 className="lg:text-3xl text-2xl font-bold mb-6 text-center">Your Shopping Cart</h2>
+      <h2 className="lg:text-3xl text-2xl font-bold mb-6 text-center">
+        Your Shopping Cart
+      </h2>
 
       <div className="space-y-4">
         {cartItems.map((item) => (
           <div
             key={item.productId}
-            className="flex items-center justify-between pb-4 bg-slate-800 transition rounded-lg lg:p-3 p-2"
+            className="sm:flex items-center justify-between pb-4 bg-slate-900 transition rounded-lg lg:p-3 px-3 py-2"
           >
             {/* Left section - Image and Info */}
             <div className="flex items-center gap-4">
@@ -42,14 +44,14 @@ export default function CartPage() {
                 alt={item.name}
                 className="w-20 h-20 object-cover rounded-xl border"
               />
-              <div>
-                <h3 className="font-semibold text-lg">{item.name}</h3>
+              <div className="w-full">
+                <h3 className="font-semibold md:text-lg">{item.name}</h3>
                 <p className="text-gray-600 text-sm">Rs. {item.price}</p>
 
-                <div className="flex items-center gap-3 mt-2">
+                <div className="flex items-center justify-end md:justify-start md:gap-3 mt-2">
                   <button
                     onClick={() => dispatch(decreaseQuantity(item.productId))}
-                    className="w-8 h-8 border rounded-md text-lg font-semibold hover:bg-gray-500 cursor-pointer"
+                    className="w-8 h-8 sm:border rounded-md text-lg font-semibold hover:bg-gray-500 cursor-pointer"
                   >
                     −
                   </button>
@@ -58,7 +60,7 @@ export default function CartPage() {
                   </span>
                   <button
                     onClick={() => dispatch(addToCart(item))}
-                    className="w-8 h-8 border rounded-md text-lg font-semibold hover:bg-gray-500 cursor-pointer"
+                    className="w-8 h-8 sm:border rounded-md text-lg font-semibold hover:bg-gray-500 cursor-pointer"
                   >
                     +
                   </button>
@@ -67,37 +69,39 @@ export default function CartPage() {
             </div>
 
             {/* Right section - Remove */}
-            <div className="flex flex-col items-end">
-              <p className="font-semibold">Rs. {item.price * item.quantity}</p>
+            <div className="flex md:flex-col items-end justify-between">
               <button
                 onClick={() => dispatch(removeFromCart(item.productId))}
                 className="text-red-500 mt-2 hover:underline cursor-pointer"
               >
                 Remove
               </button>
+              <p className="font-semibold">Rs. {item.price * item.quantity}</p>
             </div>
           </div>
         ))}
       </div>
 
       {/* Summary Section */}
-      <div className="mt-8 border-t pt-6 flex justify-between items-center">
-        <div>
+      <div className="mt-8 border-t pt-6 flex flex-col">
+        <div className="text-right w-full">
+          <p className="text-xl font-semibold">Total: Rs. {totalPrice}</p>
+        </div>
+        <div className="flex justify-between items-center mt-3">
           <button
             onClick={() => dispatch(clearCart())}
             className="px-4 py-2 rounded font-semibold bg-red-600 hover:bg-red-700 text-white transition cursor-pointer"
           >
-            Clear Cart
+            Clear
           </button>
-        </div>
-        <div className="text-right">
-          <p className="text-xl font-semibold">Total: Rs. {totalPrice}</p>
-          <Link
-            to="/checkout"
-            className="inline-block bg-green-600 text-white lg:px-6 px-3 py-2 mt-3 rounded-md hover:bg-green-700 transition"
-          >
-            Proceed to Checkout →
-          </Link>
+          <button>
+            <Link
+              to="/checkout"
+              className="inline-block bg-green-600 text-white lg:px-6 px-3 py-2 rounded-md hover:bg-green-700 transition"
+            >
+              Checkout →
+            </Link>
+          </button>
         </div>
       </div>
     </div>

@@ -63,7 +63,10 @@ const Navbar = () => {
         </li>
         {user?.role === "admin" && (
           <li>
-            <Link to="/addproduct" className="hover:border-b-2 border-white pb-1">
+            <Link
+              to="/addproduct"
+              className="hover:border-b-2 border-white pb-1"
+            >
               Add Product
             </Link>
           </li>
@@ -111,6 +114,15 @@ const Navbar = () => {
       </ul>
 
       {/* Mobile Menu with animation */}
+      <Link
+        to="/cart"
+        className="absolute right-16 top-9 md:hidden "
+      >
+        <FaCartShopping className="" />
+        <span className="absolute -top-4 -right-2 bg-red-500 px-1 text-sm rounded">
+          {cartCount}
+        </span>
+      </Link>
       <div
         className={`absolute top-16 left-0 w-full bg-black md:hidden transform transition-all duration-300 ease-in-out ${
           menuOpen
@@ -118,7 +130,7 @@ const Navbar = () => {
             : "opacity-0 -translate-y-5 pointer-events-none"
         }`}
       >
-        <ul className="flex flex-col space-y-4 py-6 px-4">
+        <ul className="flex flex-col space-y-8 font-semibold py-6 px-4">
           <li>
             <Link to="/" onClick={() => setMenuOpen(false)}>
               Home
