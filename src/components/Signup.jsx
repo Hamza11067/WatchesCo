@@ -3,31 +3,48 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { API_BASE_URL } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const ContactUs = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    if (!firstName || !lastName || !email || !password) {
+      setErrorMessage("Please fill in all fields.");
+      return;
+    }
+    try {
+      setIsLoading(true);
+      await axios.post(`${API_BASE_URL}/signup`, {
+        firstName,
+        lastName,
+        email,
+        password,
+      });
+      toast.success("Sign Up Successful!");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+    } catch (error) {
+      toast.error("Sign Up Failed! Please try again.");
+      console.error("Sign Up error:", error);
+      return;
+    } finally {
+      setIsLoading(false);
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassword("");
+    }
 
-    await axios.post( `${API_BASE_URL}/signup`, {
-      firstName,
-      lastName,
-      email,
-      password,
-    })
-
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPassword("");
-    alert("Sign Up Successful!"); 
-    navigate("/login");
-  }
+  };
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center px-4 py-10">
       <h1 className="text-4xl font-bold text-center mb-8">Sign Up</h1>
@@ -92,17 +109,18 @@ const ContactUs = () => {
 
           <p className="text-sm text-gray-500">
             Already registered!{" "}
-            <span className="text-yellow-700 font-semibold">
+            <span className="text-white font-semibold">
               <Link to="/login">Login</Link>
             </span>
           </p>
-
+          <p className="text-red-500">{errorMessage}</p>
+          <Toaster />
           <button
             type="submit"
-            className="w-full bg-black text-white rounded-lg py-3 text-lg font-semibold hover:bg-white hover:text-black transition-all duration-300 cursor-pointer"
+            className="w-full active:scale-95 bg-black text-white rounded-lg py-3 text-lg font-semibold hover:bg-white hover:text-black transition-all duration-300 cursor-pointer"
             onClick={handleSignup}
           >
-            Sign Up
+           {isLoading? "Signing Up..." : "Sign Up"}
           </button>
         </form>
       </div>
