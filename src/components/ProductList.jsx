@@ -7,6 +7,7 @@ import { addToCart } from "../utils/cartSlice";
 import { Link } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
@@ -28,20 +29,22 @@ export default function ProductList() {
   }, [productsFromStore, dispatch]);
 
   const handleAddToCart = (product) => {
-    if (!user) {
-      alert("Please login to add items to cart.");
-      return;
+    try {
+      dispatch(
+        addToCart({
+          userId: user?._id,
+          productId: product?._id,
+          name: product?.name,
+          price: product?.price,
+          photoUrl: product?.photoUrl,
+          quantity: 1,
+        })
+      );
+      toast.success("Product added to cart!");
+    } catch (error) {
+      toast.error("Failed to add product to cart.");
+      console.error("Error adding to cart:", error);
     }
-    dispatch(
-      addToCart({
-        userId: user?._id,
-        productId: product?._id,
-        name: product?.name,
-        price: product?.price,
-        photoUrl: product?.photoUrl,
-        quantity: 1
-       })
-    );
   };
 
   const deleteProduct = async (product) => {
@@ -95,9 +98,10 @@ export default function ProductList() {
                   </>
                 )}
               </div>
+              <Toaster />
               <button
-                onClick={()=> handleAddToCart(product)}
-                className="bg-black text-white text-lg font-semibold  w-full p-3 rounded-lg cursor-pointer hover:bg-red-600 hover:text-black transition-colors duration-300"
+                onClick={() => handleAddToCart(product)}
+                className="bg-black text-white active:scale-98 text-lg font-semibold  w-full p-3 rounded-lg cursor-pointer hover:bg-red-600 hover:text-black transition-colors duration-300"
               >
                 Add to cart
               </button>
